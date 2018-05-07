@@ -1,0 +1,48 @@
+<div style="text-align:center">
+  <h2> 
+    Challenge Games 
+  </h2>
+
+  <label>Match ID:
+    <input #matchId />
+  </label>
+  <button (click)="addMatch(matchId.value); matchId.value=''">
+    Add Match
+  </button>
+</div>
+
+<table style="width:80%" align="center">
+  <tr>
+    <th class="blankHead"></th>
+    <th class="blankHead"></th>
+    <th colspan="4">Arbitrary Elephant</th>
+    <th class="blankHead"></th>
+    <th colspan="4">Whimsy</th>
+  </tr>
+  <tr>
+    <th>Match ID</th>
+    <th>Match Time</th>
+    <th>Hero</th>
+    <th>Kills</th>
+    <th>Deaths</th>
+    <th>Assists</th>
+    <th>Result</th>
+    <th>Kills</th>
+    <th>Deaths</th>
+    <th>Assists</th>
+    <th>Hero</th>
+  </tr>
+  <tr *ngFor="let match of matches">
+    <td width="10%">{{match.id}}</td>
+    <td width="10%">{{match.time}}</td>
+    <td width="10%">{{match.arbitraryStats.hero}}</td>
+    <td width="5%">{{match.arbitraryStats.kills}}</td>
+    <td width="5%">{{match.arbitraryStats.deaths}}</td>
+    <td width="5%">{{match.arbitraryStats.assists}}</td>
+    <td width="5%">{{match.result}}</td>
+    <td width="5%">{{match.whimsyStats.kills}}</td>
+    <td width="5%">{{match.whimsyStats.deaths}}</td>
+    <td width="5%">{{match.whimsyStats.assists}}</td>
+    <td width="10%">{{match.whimsyStats.hero}}</td>
+  </tr>
+</table>
