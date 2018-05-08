@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-
-var matchSchema = new mongoose.Schema({
+/*jshint esversion: 6 */
+const mongoose = require('mongoose'),
+matchSchema = new mongoose.Schema({
   match_id: Number,
   barracks_status_dire: Number,
   barracks_status_radiant: Number,
@@ -252,8 +252,7 @@ var matchSchema = new mongoose.Schema({
   throw: Number,
   loss: Number,
   replay_url: String
-});
-
-const Match = mongoose.model('Match',matchSchema)
+}),
+Match = mongoose.model('Match',matchSchema);
 
 module.exports = Match;

@@ -1,51 +1,37 @@
+/*jshint esversion: 6 */
 // Server.js
 
 // Main Setup 
 // =====================================================================================
 
 // Require packages
-var express = require('express');                       // call express
-var app = express();                                    // define app using express
-var bodyParser = require('body-parser');  
-var mongoose = require('mongoose');                     // mongoose to interface with mongoDB
+const express = require('express'),                     // call express
+app = express(),                                        // define app using express
+bodyParser = require('body-parser'),
+path = require('path'),                                 // module for working with file directory paths
+mongoose = require('./devDB');
 
-// Require Models
-var Match = require('./server/models/match.model');
+apiRoute = require('./server/routes/api');              // route for api
 
 // configure app to use bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;                    // set the port
+// Angular DIST output folder
+app.use(express.static(path.join(__dirname, 'dist')));
 
-mongoose.connect('mongodb://localhost:27017/a-z');      // connect to mongoDB database
+var port = process.env.PORT || 8080;                    // set the port
 
 // Routes for API
 // =====================================================================================
-var router = express.Router();                          // get instance of express Router
-
-// Middleware for all requests
-router.use(function(req, res, next) {
-  console.log('Shit going down');
-  // Proceed with remaining routes
-  next(); 
-})
-
-// Default test route
-router.get('/', function(req, res) {
-  res.json({ message: 'Default Route Functioning'});
-});
-
-//Define route for post requests
-router.route('/matches').post(function(req, res) {
-
-  // Retrieve match ID to add
-  var matchId = req.body.matchId;
-
-})
 
 // Register Routes - all routes will be prefixed with '/api'
-app.use('/api', router);
+app.use('/api', apiRoute);
+
+// All other requests forward to Angular app by default
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
 // Start Server
 // =====================================================================================
