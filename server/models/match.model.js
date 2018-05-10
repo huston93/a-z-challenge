@@ -39,9 +39,10 @@ matchSchema = new mongoose.Schema({
   objectives: [
     {
       time: Number,
-      type: String,
+      objective_type: String,
+      unit: String,
       slot: Number,
-      key: Number,
+      key: String,
       player_slot: Number
     }
   ],
@@ -107,7 +108,6 @@ matchSchema = new mongoose.Schema({
         {
           time: Number,
           slot: Number,
-          type: String,
           player_slot: Number
         }
       ],
@@ -241,7 +241,21 @@ matchSchema = new mongoose.Schema({
       actions_per_min: Number,
       life_state_dead: Number,
       rank_tier: Number,
-      cosmetics: [Number],
+      cosmetics: [
+        {
+          item_id: Number,
+          name: String,
+          prefab: String,
+          creation_date: String,
+          image_inventory: String,
+          image_path: String,
+          item_description: String,
+          item_name: String,
+          item_rarity: String,
+          item_type_name: String,
+          used_by_heroes: String
+        }
+      ],
       benchmarks: {},
     }
   ],

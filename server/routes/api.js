@@ -1,8 +1,8 @@
 /*jshint esversion: 6 */
 
 const express = require('express'),
-router = express.Router(),
-matchRoutes = require('./matches');
+      router = express.Router(),
+      matchRoutes = require('./matches');
 
 // Middleware for all requests
 router.use((req, res, next) => {
