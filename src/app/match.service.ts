@@ -23,7 +23,7 @@ export class MatchService {
 
   getMatch(matchId: number): Observable<MatchSummary> {
     return this.http.get(this.apiUrl + 'matches/' + matchId).pipe(
-      map(res => this.parseMatchSummary(res))
+      map(res => this.parseMatchSummary(res[0]))
     );
   }
 

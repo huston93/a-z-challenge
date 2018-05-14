@@ -21,7 +21,7 @@ router.route('/').get((req, res) => {
     }
     
     // Otherwise return json object containing results
-    return res.json(matches);
+    res.json(matches);
   });
 });
 
@@ -40,7 +40,7 @@ router.route('/:match_id').get((req, res) => {
 
     // If match found, return it otherwise attempt to fetch from openDota API
     if (match) {
-      return res.json(match);
+      res.json(match);
     } else {
 
         // Set up request options
@@ -52,8 +52,9 @@ router.route('/:match_id').get((req, res) => {
         };
 
         requestPromise.get(options)
-        .then((response) => processApiResult(response, res))
+        .then((response) => processApiResult(response, res, req.params.match_id))
         .catch((error) => {
+          console.log(error);
           return res.status(500).json({
             errorText: 'Error occurred while calling OpenDota api to retrieve match ' + req.params.match_id,
             errorMessage: error
@@ -63,20 +64,20 @@ router.route('/:match_id').get((req, res) => {
   });
 });
 
-function processApiResult(apiResponse, serverResponse) {
-  if (apiResponse.error !== undefined) {
+function processApiResult(apiResponse, serverResponse, matchId) {
+  if (apiResponse.error) {
     return serverResponse.status(400).json({
-        errorText: 'No match exists with ID ' + apiResponse[match_id] 
+        errorText: 'No match exists with ID ' + matchId 
       });
   }
   Match.create([apiResponse], (error, match) => {
     if (error) {     
       return serverResponse.status(500).json({
         errorText: 'Error occurred while creating entry in DB for Match ' + apiResponse[match_id],
-        errorMessage: error 
+        errorMessage: error
       });
     }
-    return serverResponse.json(match);
+    serverResponse.json(match);
   });
 }
 
