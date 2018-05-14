@@ -11,8 +11,7 @@ export class MatchesComponent implements OnInit {
 
   matches: MatchSummary[];
 
-  constructor(private matchService: MatchService,
-              private changeDetector: ChangeDetectorRef) { }
+  constructor(private matchService: MatchService) { }
 
   ngOnInit() {
     this.getMatches();
