@@ -11,7 +11,8 @@ export class MatchesComponent implements OnInit {
 
   matches: MatchSummary[];
 
-  constructor(private matchService: MatchService) { }
+  constructor(private matchService: MatchService,
+              private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getMatches();
@@ -22,7 +23,9 @@ export class MatchesComponent implements OnInit {
   }
 
   addMatch(matchId: number): void {
-    // TODO - Add this once local storage is integrated
+    this.matchService.getMatch(matchId).subscribe(match => {
+      this.matches.push(match);
+    });
   }
 
 }

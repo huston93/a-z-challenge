@@ -15,7 +15,6 @@ export class MatchService {
   constructor(private http: HttpClient) { }
 
   getMatches(): Observable<MatchSummary[]> {
-
     return this.http.get(this.apiUrl + 'matches/').pipe(
       map(res => this.parseMatchArray(res))
     );
@@ -23,7 +22,7 @@ export class MatchService {
   }
 
   getMatch(matchId: number): Observable<MatchSummary> {
-    return this.http.get(this.apiUrl + 'matches/' + matchId, ).pipe(
+    return this.http.get(this.apiUrl + 'matches/' + matchId).pipe(
       map(res => this.parseMatchSummary(res))
     );
   }
@@ -39,9 +38,11 @@ export class MatchService {
   parseMatchSummary(res: Object): MatchSummary {
     const matchSum = new MatchSummary();
     matchSum.id = res['match_id'];
-    matchSum.time = res['duration'];
-    matchSum.arbitraryStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
-    matchSum.whimsyStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
+    if (matchSum.id !== null) {
+      matchSum.time = res['duration'];
+      matchSum.arbitraryStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
+      matchSum.whimsyStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
+    }
     return matchSum;
   }
 
