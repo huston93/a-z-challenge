@@ -35,7 +35,7 @@ router.route('/:match_id').get((req, res) => {
         // Set up request options
         const options = {
           uri: openDotaUrl + req.params.match_id,
-          proxy: 'http://haproxy:8080/',
+//          proxy: 'http://haproxy:8080/',
           simple: false,
           json: true 
         };
