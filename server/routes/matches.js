@@ -46,11 +46,12 @@ router.route('/:match_id').get((req, res) => {
         // Set up request options
         const options = {
           uri: openDotaUrl + req.params.match_id,
-//          proxy: 'http://haproxy:8080/',
+          //proxy: 'http://haproxy:8080/',
           simple: false,
           json: true 
         };
 
+        //Make request, send server side error if request fails
         requestPromise.get(options)
         .then((response) => processApiResult(response, res, req.params.match_id))
         .catch((error) => {
@@ -64,12 +65,17 @@ router.route('/:match_id').get((req, res) => {
   });
 });
 
+// Method to take result from call to OpenDota API and store in database before returning
 function processApiResult(apiResponse, serverResponse, matchId) {
   if (apiResponse.error) {
+    // If api responds with error match does not exist
     return serverResponse.status(400).json({
         errorText: 'No match exists with ID ' + matchId 
       });
   }
+  // Fix reserved tags for DB storage
+  apiResponse = fixTypeTags(apiResponse);
+  // Create Match in DB
   Match.create([apiResponse], (error, match) => {
     if (error) {     
       return serverResponse.status(500).json({
@@ -79,6 +85,25 @@ function processApiResult(apiResponse, serverResponse, matchId) {
     }
     serverResponse.json(match);
   });
+}
+
+function fixTypeTags(match) {
+  if(match.chat) {
+    match.chat.forEach((chatEntry) => { chatEntry.chatType = chatEntry.type } );
+  }
+  if(match.objectives) {
+    match.objectives.forEach((objective) => { objective.objType = objective.type });
+  }
+  if(match.players) {
+    match.players.forEach((player) => {
+      if(player.buyback_log) {
+        player.buyback_log.forEach((buyback) => { buyback.bbType = buyback.type });
+      }
+    });
+  }
+
+  return match;
+
 }
 
 module.exports = router;

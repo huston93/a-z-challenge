@@ -39,6 +39,8 @@ export class MatchService {
     const matchSum = new MatchSummary();
     matchSum.id = res['match_id'];
     if (matchSum.id !== null) {
+      let arbitrary = res['players'].find((player) => player.personaname === 'Arbitrary Elephant');
+      let whimsy = res['players'].find((player) => player.personaname === 'Whimsy');
       matchSum.time = res['duration'];
       matchSum.arbitraryStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
       matchSum.whimsyStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
