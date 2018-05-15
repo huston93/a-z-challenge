@@ -22,7 +22,9 @@ export class MatchesComponent implements OnInit {
   }
 
   addMatch(matchId: number): void {
-    // TODO - Add this once local storage is integrated
+    this.matchService.getMatch(matchId).subscribe(match => {
+      this.matches.push(match);
+    });
   }
 
 }
