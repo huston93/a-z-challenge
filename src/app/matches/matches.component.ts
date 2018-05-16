@@ -18,12 +18,16 @@ export class MatchesComponent implements OnInit {
   }
 
   getMatches(): void {
-    this.matchService.getMatches().subscribe(matches => this.matches = matches);
+    this.matchService.getMatches().subscribe(matches => {
+      this.matches = matches;
+      this.matches.sort((match1, match2)  => match2.id - match1.id);
+    });
   }
 
   addMatch(matchId: number): void {
     this.matchService.getMatch(matchId).subscribe(match => {
       this.matches.push(match);
+      this.matches.sort((match1, match2)  => match2.id - match1.id);
     });
   }
 

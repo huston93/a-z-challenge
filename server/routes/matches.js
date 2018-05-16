@@ -46,7 +46,7 @@ router.route('/:match_id').get((req, res) => {
         // Set up request options
         const options = {
           uri: openDotaUrl + req.params.match_id,
-          //proxy: 'http://haproxy:8080/',
+          proxy: 'http://haproxy:8080/',
           simple: false,
           json: true 
         };
@@ -87,17 +87,34 @@ function processApiResult(apiResponse, serverResponse, matchId) {
   });
 }
 
+// Take each object in the Match schema that has a property called 'type' 
+// and copy it to a new property as 'type' is a reserved word in Mongoose Schemas
 function fixTypeTags(match) {
   if(match.chat) {
-    match.chat.forEach((chatEntry) => { chatEntry.chatType = chatEntry.type } );
+    match.chat.forEach((chatEntry) => { chatEntry.chat_type = chatEntry.type; } );
   }
   if(match.objectives) {
-    match.objectives.forEach((objective) => { objective.objType = objective.type });
+    match.objectives.forEach((objective) => { objective.objective_type = objective.type; });
   }
   if(match.players) {
     match.players.forEach((player) => {
       if(player.buyback_log) {
-        player.buyback_log.forEach((buyback) => { buyback.bbType = buyback.type });
+        player.buyback_log.forEach((buyback) => { buyback.log_type = buyback.type; });
+      }
+      if(player.max_hero_hit) {
+        player.max_hero_hit.max_hit_type = player.max_hero_hit.type;
+      }
+      if(player.obs_left_log) {
+        player.obs_left_log.forEach((obsLeft) => { obsLeft.log_type = obsLeft.type; });
+      }
+      if(player.obs_log) {
+        player.obs_log.forEach((obs) => { obs.log_type = obs.type; });
+      }
+      if(player.sen_left_log) {
+        player.sen_left_log.forEach((senLeft) => { senLeft.log_type = senLeft.type; });
+      }
+      if(player.sen_log) {
+        player.sen_log.forEach((sen) => { sen.log_type = sen.type; });
       }
     });
   }

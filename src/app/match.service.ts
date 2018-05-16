@@ -27,7 +27,7 @@ export class MatchService {
     );
   }
 
-  parseMatchArray(res: Object): MatchSummary[] {
+  private parseMatchArray(res: Object): MatchSummary[] {
     const matchList = new Array<MatchSummary>();
     for (const match of Object.keys(res)) {
       matchList.push(this.parseMatchSummary(res[match]));
@@ -35,17 +35,24 @@ export class MatchService {
     return matchList;
   }
 
-  parseMatchSummary(res: Object): MatchSummary {
+  private parseMatchSummary(res: Object): MatchSummary {
     const matchSum = new MatchSummary();
+    // Retrieve individual player stats
+    const arbitrary = res['players'].find((player) => player.account_id === 93830833);
+    const whimsy = res['players'].find((player) => player.account_id === 27781077);
+    // Todo: implement handling for either player not found
+
+    // Extract summary details
     matchSum.id = res['match_id'];
-    if (matchSum.id !== null) {
-      let arbitrary = res['players'].find((player) => player.personaname === 'Arbitrary Elephant');
-      let whimsy = res['players'].find((player) => player.personaname === 'Whimsy');
-      matchSum.time = res['duration'];
-      matchSum.arbitraryStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
-      matchSum.whimsyStats = { hero: undefined, kills: undefined, assists: undefined, deaths: undefined };
+    matchSum.time = res['duration'];
+    matchSum.arbitraryStats = { hero: arbitrary.hero_id, kills: arbitrary.kills, assists: arbitrary.assists, deaths: arbitrary.deaths };
+    matchSum.whimsyStats = { hero: whimsy.hero_id, kills: whimsy.kills, assists: whimsy.assists, deaths: whimsy.deaths };
+    if (arbitrary.isRadiant === arbitrary.radiant_win) {
+      matchSum.result = 'Win';
+    } else {
+      matchSum.result = 'Loss';
     }
-    return matchSum;
+  return matchSum;
   }
 
 }

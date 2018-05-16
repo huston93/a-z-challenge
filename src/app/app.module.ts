@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { MatchesComponent } from './matches/matches.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MatchService } from './match.service';
+import { MatchDurationPipe } from './pipes/matchDuration.pipe';
+import { HeroNamePipe } from './pipes/heroName.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MatchesComponent
+    MatchesComponent,
+    MatchDurationPipe,
+    HeroNamePipe
   ],
   imports: [
     BrowserModule,

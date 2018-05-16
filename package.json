@@ -6,7 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod"
+    "build": "ng build --prod",
+    "refreshConstants": "node src/app/dota_constants/tasks/updateconstants"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +52,9 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "async": "^2.0.1",
+    "request": "^2.74.0",
+    "simple-vdf": "^1.1.0"
   }
 }

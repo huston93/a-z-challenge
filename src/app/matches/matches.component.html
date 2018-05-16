@@ -34,8 +34,8 @@
   </tr>
   <tr *ngFor="let match of matches">
     <td width="5%">{{match.id}}</td>
-    <td width="5%">{{match.time}}</td>
-    <td width="10%">{{match.arbitraryStats.hero}}</td>
+    <td width="5%">{{match.time | matchDuration}}</td>
+    <td width="10%">{{match.arbitraryStats.hero | heroName}}</td>
     <td width="5%">{{match.arbitraryStats.kills}}</td>
     <td width="5%">{{match.arbitraryStats.deaths}}</td>
     <td width="5%">{{match.arbitraryStats.assists}}</td>
@@ -43,6 +43,6 @@
     <td width="5%">{{match.whimsyStats.kills}}</td>
     <td width="5%">{{match.whimsyStats.deaths}}</td>
     <td width="5%">{{match.whimsyStats.assists}}</td>
-    <td width="10%">{{match.whimsyStats.hero}}</td>
+    <td width="10%">{{match.whimsyStats.hero | heroName}}</td>
   </tr>
 </table>
