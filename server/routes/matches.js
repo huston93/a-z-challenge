@@ -3,7 +3,8 @@
 const express = require('express'),
       router = express.Router(),
       Match = require('../models/match.model'),
-      requestPromise = require('request-promise');
+      requestPromise = require('request-promise'),
+      proxy = require('../proxy-config');
 
 const openDotaUrl = 'https://api.opendota.com/api/matches/';
 
@@ -46,7 +47,7 @@ router.route('/:match_id').get((req, res) => {
         // Set up request options
         const options = {
           uri: openDotaUrl + req.params.match_id,
-          proxy: 'http://haproxy:8080/',
+          proxy: proxy.proxyUrl,
           simple: false,
           json: true 
         };
@@ -70,7 +71,7 @@ function processApiResult(apiResponse, serverResponse, matchId) {
   if (apiResponse.error) {
     // If api responds with error match does not exist
     return serverResponse.status(400).json({
-        errorText: 'No match exists with ID ' + matchId 
+        errorText: apiResponse.error 
       });
   }
   // Fix reserved tags for DB storage

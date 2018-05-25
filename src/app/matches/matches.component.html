@@ -4,7 +4,7 @@
   </h2>
 
   <label>Match ID:
-    <input #matchId />
+    <input #matchId (keyup.enter)="addMatch(matchId.value); matchId.value=''" />
   </label>
   <button (click)="addMatch(matchId.value); matchId.value=''">
     Add Match
