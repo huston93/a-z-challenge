@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import constants = require('../dota_constants/index.js');
+import * as constants from '../dota_constants/index.js';
 
 const heroes = constants.heroes;
 
