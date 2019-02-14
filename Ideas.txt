@@ -1,0 +1,11 @@
+- Create separate MatchSummary class or possibly a method on the Match class to return the summary,
+  consider ditching summary altogether and just working with full match details (extracting summary information as required.
+  
+- Depending on decision re-implement parsing of match summaries and localise to relevant method
+
+- Update constants (should be automated via build command?
+
+- Design full match detail screen
+
+- Implement custom CSS for table (consider alternatives to current approach to tabular display as well).
+  
