@@ -30,6 +30,7 @@
     "express": "~4.16.3",
     "hoek": "4.2.1",
     "https-proxy-agent": ">=2.2.0",
+    "mime": ">=1.4.1",
     "mongoose": "~5.0.16",
     "nodemon": "^1.17.3",
     "request": "^2.85.0",
