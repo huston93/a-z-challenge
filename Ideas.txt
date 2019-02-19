@@ -3,9 +3,12 @@
   
 - Depending on decision re-implement parsing of match summaries and localise to relevant method
 
-- Update constants (should be automated via build command?
+- Update constants (should be automated via build command)?
 
 - Design full match detail screen
 
-- Implement custom CSS for table (consider alternatives to current approach to tabular display as well).
+- Implement custom minimalist CSS for table (consider alternatives to current approach to tabular display as well).
   
+- Revisit Angular Material to explore theming (custom black/gray and red theme?) and for Tabular display and other controls that might be   effective for displaying match stats, will give app a nice uniform visual appeal.
+
+- Look into End to End testing (protractor?)
