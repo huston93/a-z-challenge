@@ -11,4 +11,8 @@
   
 - Revisit Angular Material to explore theming (custom black/gray and red theme?) and for Tabular display and other controls that might be   effective for displaying match stats, will give app a nice uniform visual appeal.
 
+- Put table display and individual match display into sub-components under matches component. 
+
+- Make a dashboard component displaying the next match in the challenge (maybe other statistics? Whimsy and my stats on the given heroes?)
+
 - Look into End to End testing (protractor?)
